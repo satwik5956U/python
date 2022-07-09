@@ -1,7 +1,8 @@
 from tkinter import *
 import mysql.connector as db
 from datetime import datetime as dt
-conn=db.connect(user='root',password='Satwik@2003',host='localhost',database='satwik')
+#first create database with a accounts relation table 
+conn=db.connect(user='root',password='root',host='localhost',database='satwik')
 cursor=conn.cursor()
 root=Tk()
 a=StringVar()
