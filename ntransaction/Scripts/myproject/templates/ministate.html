@@ -8,12 +8,27 @@
 </head>
 <body>
     <h1>
-        {{mydata}}
+        mini statement
     </h1>
-    <table>
+    <table border="1">
         <tr>
             <th>
-                
+                transaction id
+            </th>
+            <th>
+                first name
+            </th>
+            <th>
+                last name
+            </th>
+            <th>
+                account number
+            </th>
+            <th>
+                amount
+            </th>
+            <th>
+                date of transaction
             </th>
         </tr>
         {% for i in mydata %}
@@ -26,6 +41,15 @@
                 </td>
                 <td>
                     {{i.lname}}
+                </td>
+                <td>
+                    {{i.acc}}
+                </td>
+                <td>
+                    {{i.amt}}
+                </td>
+                <td>
+                    {{i.date}}
                 </td>
             </tr>
             {% endfor %}

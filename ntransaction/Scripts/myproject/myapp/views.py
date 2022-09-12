@@ -30,7 +30,7 @@ def signindata(request):
             amnt=i.amt
             finame=i.fname
             laname=i.lname
-            return render(request,'signinacc.html',{'acc':i.acc,'passw':i.passw})
+            return render(request,'signinacc.html',{'acc':i.acc,'fname':i.fname})
     return HttpResponse("incorrect")
     
 def creditbutton(request):
@@ -42,12 +42,26 @@ def creditpage(request):
     for i in m:
         if i.id>mid:
             n=i.amt
-    m=models.Members(fname=finame,lname=laname,acc=accnum,amt=n+int(request.GET['creamt']),date=str(dt.datetime.now()))
+    m=models.Members(fname=finame,passw=passwo,lname=laname,acc=accnum,amt=n+int(request.GET['creamt']),date=str(dt.datetime.now()))
     m.save()
-    return HttpResponse(str(n))
+    return HttpResponse('credited successfully')
 def ministate(request):
     m=models.Members.objects.filter(acc=accnum,passw=passwo)
     context={
         'mydata':m
     }
     return render(request,'ministate.html',context)
+def debitbutton(request):
+    return render(request,'debitpage.html')
+def debitpage(request):
+    m=models.Members.objects.filter(acc=accnum,passw=passwo)
+    mid=0
+    for i in m:
+        if i.id>mid:
+            n=i.amt
+    if n>=int(request.GET['debtamt']):
+        m=models.Members(fname=finame,passw=passwo,lname=laname,acc=accnum,amt=n-int(request.GET['debtamt']),date=str(dt.datetime.now()))
+        m.save()
+        return HttpResponse("debited successfully")
+    return HttpResponse('not enough balance')
+    
